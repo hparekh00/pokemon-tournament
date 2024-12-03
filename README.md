@@ -17,8 +17,8 @@
 1. Clone the repository: 
 
 ```
-git clone https://github.gatech.edu/jsh6/flask-pokemon-tournament.git
-cd flask-pokemon-tournament
+git clone <repo-link>
+cd pokemon-tournament
 ```
 
 2. Start up containers: 
