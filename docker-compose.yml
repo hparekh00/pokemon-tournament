@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+
+  flask:
+    build: 
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: flask-app
+    ports:
+      - "6035:6035"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/pokemon_database
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+  frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile.frontend
+      container_name: frontend
+      ports:
+        - "3001:80"
+      depends_on:
+        - flask
